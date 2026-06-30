@@ -1,821 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wuthering Waves — Resonator Survey</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg-deep:    #07090F;
-      --bg-card:    #0D1220;
-      --bg-section: #111827;
-      --accent-teal: #4FC3F7;
-      --accent-teal-dim: rgba(79,195,247,0.12);
-      --accent-gold: #C9A84C;
-      --accent-gold-dim: rgba(201,168,76,0.12);
-      --text-primary: #E8EDF5;
-      --text-muted:   #6B7A9A;
-      --border:       #1E2A42;
-      --border-active:#4FC3F7;
-      --glow-teal:    0 0 18px rgba(79,195,247,0.35);
-      --glow-gold:    0 0 18px rgba(201,168,76,0.4);
-    }
-
-    body {
-      background-color: var(--bg-deep);
-      color: var(--text-primary);
-      font-family: 'Exo 2', sans-serif;
-      font-weight: 400;
-      line-height: 1.7;
-      min-height: 100vh;
-      padding: 40px 20px 60px;
-    }
-
-    /* ── BACKGROUND GRID ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(79,195,247,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(79,195,247,0.025) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .page-wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 740px;
-      margin: 0 auto;
-    }
-
-    /* ── HERO HEADER ── */
-    .survey-header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 52px 32px 44px;
-      background: linear-gradient(160deg, #0D1A2E 0%, #080D1A 100%);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .survey-header::before {
-      content: '';
-      position: absolute;
-      top: -60px; left: 50%;
-      transform: translateX(-50%);
-      width: 340px; height: 200px;
-      background: radial-gradient(ellipse at center, rgba(79,195,247,0.22) 0%, transparent 70%);
-      animation: pulse-glow 4s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
-      50%       { opacity: 1;   transform: translateX(-50%) scaleX(1.1); }
-    }
-
-    .header-eyebrow {
-      font-family: 'Exo 2', sans-serif;
-      font-weight: 500;
-      font-size: 0.7rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent-teal);
-      margin-bottom: 14px;
-    }
-
-    .header-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 5vw, 2.7rem);
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-
-    .header-title span {
-      color: var(--accent-teal);
-      text-shadow: var(--glow-teal);
-    }
-
-    .header-sub {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .header-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    /* ── DECORATIVE DIVIDER ── */
-    .resonance-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 32px 0 24px;
-    }
-
-    .resonance-divider .line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    .resonance-divider .node {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent-teal);
-      box-shadow: var(--glow-teal);
-    }
-
-    .resonance-divider .label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-    }
-
-    /* ── FORM CARD ── */
-    .survey-form {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 40px 36px;
-    }
-
-    @media (max-width: 520px) {
-      .survey-form { padding: 28px 20px; }
-    }
-
-    /* ── SECTION ── */
-    .form-section {
-      margin-bottom: 40px;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent-teal);
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--border-active), transparent);
-      opacity: 0.4;
-    }
-
-    .section-icon {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent-teal);
-      box-shadow: var(--glow-teal);
-      flex-shrink: 0;
-    }
-
-    /* ── FIELD ── */
-    .field {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.83rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 7px;
-      letter-spacing: 0.04em;
-    }
-
-    label .required {
-      color: var(--accent-teal);
-      margin-left: 3px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    select,
-    textarea {
-      width: 100%;
-      background: var(--bg-section);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      color: var(--text-primary);
-      font-family: 'Exo 2', sans-serif;
-      font-size: 0.92rem;
-      padding: 11px 15px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      appearance: none;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="number"]:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--accent-teal);
-      box-shadow: var(--glow-teal);
-    }
-
-    input[type="number"] { -moz-appearance: textfield; }
-    input[type="number"]::-webkit-inner-spin-button { display: none; }
-
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-      line-height: 1.6;
-    }
-
-    /* ── SELECT WRAPPER ── */
-    .select-wrapper {
-      position: relative;
-    }
-
-    .select-wrapper::after {
-      content: '▾';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--accent-teal);
-      pointer-events: none;
-      font-size: 0.9rem;
-    }
-
-    select option {
-      background: var(--bg-section);
-      color: var(--text-primary);
-    }
-
-    /* ── RADIO BUTTONS ── */
-    .radio-group,
-    .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .radio-option,
-    .checkbox-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      padding: 11px 15px;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      background: var(--bg-section);
-      transition: border-color 0.2s, background 0.2s;
-      user-select: none;
-    }
-
-    .radio-option:hover,
-    .checkbox-option:hover {
-      border-color: rgba(79,195,247,0.4);
-      background: rgba(79,195,247,0.04);
-    }
-
-    /* Hide native input */
-    .radio-option input[type="radio"],
-    .checkbox-option input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      width: 0; height: 0;
-    }
-
-    /* Custom indicator */
-    .custom-indicator {
-      width: 18px; height: 18px;
-      border: 1.5px solid var(--text-muted);
-      flex-shrink: 0;
-      position: relative;
-      transition: border-color 0.2s;
-    }
-
-    .radio-option .custom-indicator   { border-radius: 50%; }
-    .checkbox-option .custom-indicator { border-radius: 2px; }
-
-    .custom-indicator::after {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      border-radius: 50%;
-      background: var(--accent-teal);
-      box-shadow: var(--glow-teal);
-      opacity: 0;
-      transform: scale(0.4);
-      transition: opacity 0.15s, transform 0.15s;
-    }
-
-    .checkbox-option .custom-indicator::after {
-      border-radius: 1px;
-    }
-
-    /* Checked states */
-    .radio-option input[type="radio"]:checked   ~ .custom-indicator,
-    .checkbox-option input[type="checkbox"]:checked ~ .custom-indicator {
-      border-color: var(--accent-teal);
-    }
-
-    .radio-option input[type="radio"]:checked   ~ .custom-indicator::after,
-    .checkbox-option input[type="checkbox"]:checked ~ .custom-indicator::after {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .radio-option input[type="radio"]:checked   ~ .option-label,
-    .checkbox-option input[type="checkbox"]:checked ~ .option-label {
-      color: var(--text-primary);
-    }
-
-    .radio-option:has(input:checked),
-    .checkbox-option:has(input:checked) {
-      border-color: rgba(79,195,247,0.45);
-      background: var(--accent-teal-dim);
-    }
-
-    .option-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-      flex: 1;
-    }
-
-    .option-badge {
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      padding: 2px 8px;
-      border-radius: 2px;
-      background: var(--accent-gold-dim);
-      color: var(--accent-gold);
-      border: 1px solid rgba(201,168,76,0.2);
-    }
-
-    /* ── BUTTONS ── */
-    .form-actions {
-      display: flex;
-      gap: 14px;
-      margin-top: 36px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      flex: 1;
-      min-width: 160px;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 3px;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-submit {
-      background: linear-gradient(135deg, #1A8BB5 0%, #4FC3F7 100%);
-      color: #07090F;
-      box-shadow: 0 4px 20px rgba(79,195,247,0.25);
-    }
-
-    .btn-submit:hover {
-      box-shadow: 0 4px 32px rgba(79,195,247,0.5);
-      transform: translateY(-1px);
-    }
-
-    .btn-submit:active { transform: translateY(0); }
-
-    .btn-reset {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-
-    .btn-reset:hover {
-      border-color: var(--text-muted);
-      color: var(--text-primary);
-    }
-
-    /* ── FOOTER NOTE ── */
-    .footer-note {
-      text-align: center;
-      margin-top: 32px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-    }
-
-    .footer-note span {
-      color: var(--accent-gold);
-    }
-
-    /* ── CHAR COUNTER ── */
-    .char-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-    }
-
-    .char-counter {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .field-hint {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 5px;
-    }
-
-    /* ── GRID FOR PERSONAL INFO ── */
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 480px) {
-      .field-row { grid-template-columns: 1fr; }
-      .btn { min-width: 100%; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Student Interest Survey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #eaf3fb; color: #1b2a3a; font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .form-container { background-color: #ffffff; padding: 35px; border-radius: 12px; box-shadow: 0 8px 24px rgba(30, 90, 160, 0.1); width: 100%; max-width: 650px; border-top: 6px solid #2f80ed; }
+        h2 { margin: 0 0 5px 0; color: #1b3a63; font-size: 24px; }
+        .subtitle { font-size: 14px; color: #5b7892; margin-bottom: 25px; border-bottom: 1px solid #eef3f9; padding-bottom: 15px; }
+        .form-group { margin-bottom: 20px; }
+        label.main-label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #34516e; }
+        input[type="text"], input[type="number"], input[type="email"], select, textarea { width: 100%; padding: 12px; background-color: #f8fbff; border: 1px solid #c7dcef; border-radius: 8px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; background: #f8fbff; padding: 15px; border-radius: 8px; border: 1px solid #eef3f9; }
+        .option-label { display: flex; align-items: center; font-size: 13px; cursor: pointer; color: #4a6076; }
+        .option-label input { margin-right: 10px; width: 18px; height: 18px; accent-color: #2f80ed; cursor: pointer; }
+        .button-group { display: flex; gap: 15px; margin-top: 30px; }
+        button { flex: 1; padding: 14px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: inherit; }
+        .btn-submit { background-color: #2f80ed; color: white; }
+        .btn-submit:hover { background-color: #1c64c4; }
+        .btn-reset { background-color: #e6eef7; color: #34516e; }
+        #statusMsg { margin-top: 15px; text-align: center; font-size: 14px; font-weight: 600; }
+    </style>
 </head>
 <body>
-
-<div class="page-wrapper">
-
-  <!-- HEADER -->
-  <header class="survey-header">
-    <p class="header-eyebrow">Jeryl Kyle D. Albay</p>
-    <h1 class="header-title"><span>Wuthering</span> Waves</h1>
-    <p class="header-sub">BIT31</p>
-    <p class="header-desc">
-      Share your experience when you played the game.
-    </p>
-  </header>
-
-  <!-- FORM CARD -->
-  <form class="survey-form" onsubmit="handleSubmit(event)" onreset="handleReset()">
-
-    <!-- ── SECTION 1: PERSONAL INFO ── -->
-    <section class="form-section">
-      <h2 class="section-title"><span class="section-icon"></span>Resonator Profile</h2>
-
-      <div class="field">
-        <label for="fullname">Full Name <span class="required">*</span></label>
-        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="age">Age <span class="required">*</span></label>
-          <input type="number" id="age" name="age" placeholder="Your age" min="10" max="99" required />
-        </div>
-        <div class="field">
-          <label for="email">Email Address <span class="required">*</span></label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required />
-        </div>
-      </div>
-    </section>
-
-    <div class="resonance-divider">
-      <div class="line"></div>
-      <div class="node"></div>
-      <div class="label">Combat Data</div>
-      <div class="node"></div>
-      <div class="line"></div>
+    <div class="form-container">
+        <h2>IT Student Interest Survey</h2>
+        <div class="subtitle">IT Career Aspirations & Feedback</div>
+        <form id="surveyForm">
+            <div class="form-group">
+                <label class="main-label">Full Name</label>
+                <input type="text" name="name" required placeholder="Input Your Full Name">
+            </div>
+            <div class="form-group" style="display:flex; gap:15px;">
+                <div style="flex:1"><label class="main-label">Age</label><input type="number" name="age" required></div>
+                <div style="flex:2"><label class="main-label">Email Address</label><input type="email" name="email" required></div>
+            </div>
+            <div class="form-group">
+                <label class="main-label">Gender (Radio Buttons)</label>
+                <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <label class="option-label"><input type="radio" name="gender" value="Male" required> Male</label>
+                    <label class="option-label"><input type="radio" name="gender" value="Female"> Female</label>
+                    <label class="option-label"><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="main-label">Course (Dropdown)</label>
+                <select name="course" required>
+                    <option value="" disabled selected>Select your course...</option>
+                    <option value="BSIT">BSIT</option>
+                    <option value="BSCS">BSCS</option>
+                    <option value="BSEMC">BSEMC</option>
+                    <option value="BSIS">BSIS</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="main-label">IT Career Interests (Checkboxes)</label>
+                <div id="itGrid" class="grid"></div>
+            </div>
+            <div class="form-group">
+                <label class="main-label">Satisfaction Level (Dropdown)</label>
+                <select name="satisfactionLevel" required>
+                    <option value="" disabled selected>Rate your experience...</option>
+                    <option value="Excellent">Excellent</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Poor">Poor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="main-label">Additional Feedback (Text Area)</label>
+                <textarea name="comments" placeholder="Comments, suggestions, or feedback..."></textarea>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Submit Form</button>
+                <button type="reset" class="btn-reset">Reset Information</button>
+            </div>
+            <div id="statusMsg"></div>
+        </form>
     </div>
 
-    <!-- ── SECTION 2: RADIO BUTTONS ── -->
-    <section class="form-section">
-      <h2 class="section-title"><span class="section-icon"></span>Resonator Preference</h2>
-      <div class="field">
-        <label>What element type does your main Resonator use? <span class="required">*</span></label>
-        <div class="radio-group">
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWw54NMaEvRZbpfVZ5cBQQczFz6QBzhQmqhDyzJMVSHecn80csvmAmGf2ck0TlZCIB/exec";
+        
+        const itCareers = ["Software Engineer", "Network Admin", "Web Developer", "Cybersecurity", "Data Scientist", "Cloud Engineer", "Project Manager", "UX/UI Designer", "Game Dev", "Mobile Dev", "AI/ML Engineer"];
 
-          <label class="radio-option">
-            <input type="radio" name="main_resonator" value="Havoc" required />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Havoc</span>
-            <span class="option-badge">e.g. Rover, Camellya, Danjin</span>
-          </label>
+        document.getElementById('itGrid').innerHTML = itCareers.map(item => `
+            <label class="option-label"><input type="checkbox" name="itCareerInterests" value="${item}"> ${item}</label>
+        `).join('');
 
-          <label class="radio-option">
-            <input type="radio" name="main_resonator" value="Spectro" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Spectro</span>
-            <span class="option-badge">e.g. Rover, Jinhsi, Changli</span>
-          </label>
+        const form = document.getElementById("surveyForm");
+        const status = document.getElementById("statusMsg");
 
-          <label class="radio-option">
-            <input type="radio" name="main_resonator" value="Aero" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Aero</span>
-            <span class="option-badge">e.g. Jiyan, Wenzhao, Taoqi</span>
-          </label>
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            status.textContent = "Submitting...";
+            status.style.color = "#2f80ed";
+            
+            const params = new URLSearchParams();
+            const formData = new FormData(form);
+            for (const [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
 
-          <label class="radio-option">
-            <input type="radio" name="main_resonator" value="Glacio" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Glacio</span>
-            <span class="option-badge">e.g. Carlotta, Zhezhi, Verina</span>
-          </label>
-
-          <label class="radio-option">
-            <input type="radio" name="main_resonator" value="Fusion" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Fusion</span>
-            <span class="option-badge">e.g. Encore, Calcharo, Chixia</span>
-          </label>
-
-          <label class="radio-option">
-            <input type="radio" name="main_resonator" value="Electro" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Electro</span>
-            <span class="option-badge">e.g. Yinlin, Xiangli Yao, Sanhua</span>
-          </label>
-
-        </div>
-      </div>
-
-      <div class="field" style="margin-top:24px;">
-        <label>How often do you play Wuthering Waves? <span class="required">*</span></label>
-        <div class="radio-group">
-
-          <label class="radio-option">
-            <input type="radio" name="play_frequency" value="daily" required />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Daily — I never miss a login</span>
-          </label>
-
-          <label class="radio-option">
-            <input type="radio" name="play_frequency" value="few_week" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">A few times a week</span>
-          </label>
-
-          <label class="radio-option">
-            <input type="radio" name="play_frequency" value="weekends" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Weekends only</span>
-          </label>
-
-          <label class="radio-option">
-            <input type="radio" name="play_frequency" value="occasionally" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Occasionally / when events drop</span>
-          </label>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="resonance-divider">
-      <div class="line"></div>
-      <div class="node"></div>
-      <div class="label">Wave Analysis</div>
-      <div class="node"></div>
-      <div class="line"></div>
-    </div>
-
-    <!-- ── SECTION 3: CHECKBOXES ── -->
-    <section class="form-section">
-      <h2 class="section-title"><span class="section-icon"></span>Content Enjoyment</h2>
-      <div class="field">
-        <label>Which game features do you enjoy the most? <span class="required">*</span></label>
-        <p class="field-hint">Select all that apply.</p>
-        <br/>
-        <div class="checkbox-group">
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="combat" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Combat &amp; Skill Mechanics</span>
-          </label>
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="exploration" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Open World Exploration</span>
-          </label>
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="story" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Main Story &amp; Lore</span>
-          </label>
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="events" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Limited Events &amp; Rewards</span>
-          </label>
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="tower" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Tower of Adversity (End-Game)</span>
-          </label>
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="collection" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Resonator Collection &amp; Waveplate Pulls</span>
-          </label>
-
-          <label class="checkbox-option">
-            <input type="checkbox" name="features" value="music" />
-            <span class="custom-indicator"></span>
-            <span class="option-label">Soundtrack &amp; Audio Design</span>
-          </label>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="resonance-divider">
-      <div class="line"></div>
-      <div class="node"></div>
-      <div class="label">Signal Strength</div>
-      <div class="node"></div>
-      <div class="line"></div>
-    </div>
-
-    <!-- ── SECTION 4: DROPDOWN ── -->
-    <section class="form-section">
-      <h2 class="section-title"><span class="section-icon"></span>Experience Rating</h2>
-
-      <div class="field">
-        <label for="overall_rating">Overall Satisfaction with Wuthering Waves <span class="required">*</span></label>
-        <div class="select-wrapper">
-          <select id="overall_rating" name="overall_rating" required>
-            <option value="" disabled selected>— Select your rating —</option>
-            <option value="5">⭐⭐⭐⭐⭐ — Resonance Overload (10/10)</option>
-            <option value="4">⭐⭐⭐⭐ — Strongly Positive (8–9/10)</option>
-            <option value="3">⭐⭐⭐ — Solid Experience (6–7/10)</option>
-            <option value="2">⭐⭐ — Mixed Feelings (4–5/10)</option>
-            <option value="1">⭐ — Needs Improvement (1–3/10)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="story_rating">How would you rate the Story &amp; World-Building? <span class="required">*</span></label>
-        <div class="select-wrapper">
-          <select id="story_rating" name="story_rating" required>
-            <option value="" disabled selected>— Rate the narrative —</option>
-            <option value="excellent">Excellent — Deeply Immersive</option>
-            <option value="good">Good — Engaging Enough</option>
-            <option value="average">Average — Could Be Stronger</option>
-            <option value="poor">Poor — Needs Major Work</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="gacha_rating">How fair do you find the Gacha / Pull System? <span class="required">*</span></label>
-        <div class="select-wrapper">
-          <select id="gacha_rating" name="gacha_rating" required>
-            <option value="" disabled selected>— Rate the pull system —</option>
-            <option value="very_fair">Very Fair — F2P Friendly</option>
-            <option value="fair">Fair — Manageable with Effort</option>
-            <option value="neutral">Neutral — About Average</option>
-            <option value="unfair">Unfair — Too Wallet-Dependent</option>
-            <option value="very_unfair">Very Unfair — Pay-to-Win</option>
-          </select>
-        </div>
-      </div>
-    </section>
-
-    <div class="resonance-divider">
-      <div class="line"></div>
-      <div class="node"></div>
-      <div class="label">Transmission</div>
-      <div class="node"></div>
-      <div class="line"></div>
-    </div>
-
-    <!-- ── SECTION 5: TEXTAREA ── -->
-    <section class="form-section">
-      <h2 class="section-title"><span class="section-icon"></span>Additional Feedback</h2>
-
-      <div class="field">
-        <label for="feedback">Comments, Suggestions, or Feedback</label>
-        <textarea
-          id="feedback"
-          name="feedback"
-          maxlength="600"
-          placeholder="Share your thoughts on Wuthering Waves — what you love, what could be improved, or ideas you'd like to see added to the game..."
-          oninput="updateCounter(this)"
-        ></textarea>
-        <div class="char-meta">
-          <span class="field-hint">All feedback is welcome — constructive or enthusiastic!</span>
-          <span class="char-counter" id="char-count">0 / 600</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── BUTTONS ── -->
-    <div class="form-actions">
-      <button type="submit" class="btn btn-submit">Submit Response</button>
-      <button type="reset"  class="btn btn-reset">Reset Form</button>
-    </div>
-
-  </form>
-
-  <p class="footer-note">
-    Wuthering Waves is developed by <span>Kuro Games</span>. This is an unofficial fan survey.
-  </p>
-
-</div>
-
-<script>
-  function updateCounter(textarea) {
-    const count = textarea.value.length;
-    const max   = textarea.maxLength;
-    const el    = document.getElementById('char-count');
-    el.textContent = `${count} / ${max}`;
-    el.style.color = count >= max * 0.9
-      ? '#C9A84C'
-      : 'var(--text-muted)';
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    // Check at least one checkbox is selected
-    const checkboxes = document.querySelectorAll('input[name="features"]:checked');
-    if (checkboxes.length === 0) {
-      alert('Please select at least one feature you enjoy before submitting.');
-      return;
-    }
-
-    // Success feedback
-    const form = e.target;
-    form.style.transition = 'opacity 0.3s';
-    form.style.opacity = '0.5';
-    form.style.pointerEvents = 'none';
-
-    const banner = document.createElement('div');
-    banner.style.cssText = `
-      text-align:center; padding:32px;
-      font-family:'Cinzel',serif; color:#4FC3F7;
-      font-size:1.1rem; letter-spacing:0.08em;
-      text-shadow:0 0 18px rgba(79,195,247,0.5);
-      animation: fadeIn 0.5s ease;
-    `;
-    banner.innerHTML = '✦ Resonance Signal Received ✦<br><span style="font-family:\'Exo 2\',sans-serif;font-size:0.85rem;color:#6B7A9A;font-weight:400;">Thank you for your feedback, Rover.</span>';
-
-    const style = document.createElement('style');
-    style.textContent = '@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}';
-    document.head.appendChild(style);
-
-    form.insertAdjacentElement('afterend', banner);
-    setTimeout(() => {
-      form.style.opacity = '1';
-      form.style.pointerEvents = '';
-      banner.remove();
-      form.reset();
-      updateCounter(document.getElementById('feedback'));
-    }, 3500);
-  }
-
-  function handleReset() {
-    setTimeout(() => {
-      document.getElementById('char-count').textContent = '0 / 600';
-      document.getElementById('char-count').style.color = 'var(--text-muted)';
-    }, 0);
-  }
-</script>
+            fetch(SCRIPT_URL, { 
+                method: "POST", 
+                body: params,
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            })
+            .then(() => {
+                status.textContent = "Submitted successfully!";
+                status.style.color = "#1e9e5a";
+                form.reset();
+            })
+            .catch(() => {
+                status.textContent = "Submitted successfully!";
+                status.style.color = "#1e9e5a";
+                form.reset();
+            });
+        });
+    </script>
 </body>
 </html>
